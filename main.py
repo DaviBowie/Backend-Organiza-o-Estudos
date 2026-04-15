@@ -18,6 +18,7 @@ app = FastAPI(title="NotebookLM Backend", version="1.0.0", redirect_slashes=Fals
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://frontend-organiza-o-estudos.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
