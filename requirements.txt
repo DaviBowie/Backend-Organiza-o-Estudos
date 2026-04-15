@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+notebooklm-py[browser]
+python-dotenv
+aiofiles
+python-multipart
