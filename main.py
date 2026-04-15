@@ -1,3 +1,4 @@
+import base64
 import os
 from pathlib import Path
 
@@ -12,6 +13,13 @@ load_dotenv()
 ALLOWED_ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
 DOWNLOAD_DIR = Path(os.getenv("DOWNLOAD_DIR", "./downloads"))
 DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+# ── Restore NotebookLM auth from env var ──────────────────────────────────────
+_storage_b64 = os.getenv("NOTEBOOKLM_STORAGE_STATE")
+if _storage_b64:
+    _storage_path = Path("/root/.notebooklm/storage_state.json")
+    _storage_path.parent.mkdir(parents=True, exist_ok=True)
+    _storage_path.write_bytes(base64.b64decode(_storage_b64))
 
 app = FastAPI(title="NotebookLM Backend", version="1.0.0", redirect_slashes=False)
 
